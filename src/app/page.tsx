@@ -24,6 +24,38 @@ import {
 } from "lucide-react";
 
 /* ------------------------------------------------------------------ */
+/*  Category colors – subtle tinted backgrounds, not gamey             */
+/* ------------------------------------------------------------------ */
+const categoryStyle: Record<string, string> = {
+  Payments:       "bg-blue-50 border-blue-200 text-blue-700",
+  Accounting:     "bg-emerald-50 border-emerald-200 text-emerald-700",
+  ERP:            "bg-violet-50 border-violet-200 text-violet-700",
+  Banking:        "bg-cyan-50 border-cyan-200 text-cyan-700",
+  "Spend Mgmt":   "bg-amber-50 border-amber-200 text-amber-700",
+  "HR & Payroll":  "bg-rose-50 border-rose-200 text-rose-700",
+  Billing:        "bg-indigo-50 border-indigo-200 text-indigo-700",
+  Treasury:       "bg-teal-50 border-teal-200 text-teal-700",
+  Tax:            "bg-orange-50 border-orange-200 text-orange-700",
+  Expenses:       "bg-pink-50 border-pink-200 text-pink-700",
+  "Close Mgmt":   "bg-fuchsia-50 border-fuchsia-200 text-fuchsia-700",
+  "Practice Mgmt":"bg-purple-50 border-purple-200 text-purple-700",
+  CRM:            "bg-sky-50 border-sky-200 text-sky-700",
+  "Project Mgmt": "bg-lime-50 border-lime-200 text-lime-700",
+  Analytics:      "bg-slate-100 border-slate-300 text-slate-700",
+  Meetings:       "bg-yellow-50 border-yellow-200 text-yellow-700",
+  Productivity:   "bg-green-50 border-green-200 text-green-700",
+  Crypto:         "bg-zinc-100 border-zinc-300 text-zinc-700",
+  "Agent Platform":"bg-violet-50 border-violet-200 text-violet-700",
+  Social:         "bg-blue-50 border-blue-200 text-blue-700",
+  Media:          "bg-red-50 border-red-200 text-red-700",
+  Security:       "bg-stone-100 border-stone-300 text-stone-700",
+  "AI Builder":   "bg-indigo-50 border-indigo-200 text-indigo-700",
+};
+
+const getCategoryClasses = (category: string) =>
+  categoryStyle[category] ?? "bg-gray-50 border-gray-200 text-gray-700";
+
+/* ------------------------------------------------------------------ */
 /*  Portfolio data                                                     */
 /* ------------------------------------------------------------------ */
 
@@ -380,11 +412,11 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="group"
               >
-                <Card className="flex flex-col items-center justify-center h-20 px-3 text-center bg-white border-slate-200 hover:border-emerald-400 hover:shadow-sm transition-all duration-150">
-                  <span className="text-sm font-medium text-slate-700 group-hover:text-emerald-700 transition-colors truncate">
+                <Card className={`flex flex-col items-center justify-center min-h-[5.5rem] py-3 px-4 text-center border hover:shadow-md hover:scale-[1.03] transition-all duration-150 ${getCategoryClasses(app.category)}`}>
+                  <span className="text-sm font-semibold leading-tight">
                     {app.name}
                   </span>
-                  <span className="text-[10px] text-slate-400 mt-1">{app.category}</span>
+                  <span className="text-[11px] opacity-60 mt-1.5 font-medium">{app.category}</span>
                 </Card>
               </a>
             ))}
@@ -396,11 +428,11 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="group"
               >
-                <Card className="flex flex-col items-center justify-center h-20 px-3 text-center bg-white border-slate-200 hover:border-emerald-400 hover:shadow-sm transition-all duration-150">
-                  <span className="text-sm font-medium text-slate-700 group-hover:text-emerald-700 transition-colors truncate">
+                <Card className={`flex flex-col items-center justify-center min-h-[5.5rem] py-3 px-4 text-center border hover:shadow-md hover:scale-[1.03] transition-all duration-150 ${getCategoryClasses(app.category)}`}>
+                  <span className="text-sm font-semibold leading-tight">
                     {app.name}
                   </span>
-                  <span className="text-[10px] text-slate-400 mt-1">{app.category}</span>
+                  <span className="text-[11px] opacity-60 mt-1.5 font-medium">{app.category}</span>
                 </Card>
               </a>
             ))}

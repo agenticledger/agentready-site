@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useRef, FormEvent } from "react";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -22,7 +21,6 @@ import {
   CheckCircle2,
   ChevronRight,
   Send,
-  Sparkles,
 } from "lucide-react";
 
 /* ------------------------------------------------------------------ */
@@ -240,13 +238,10 @@ export default function Home() {
       {/* ---- HERO ---- */}
       <header className="relative overflow-hidden bg-gradient-to-b from-white via-emerald-50/40 to-white">
         <div className="mx-auto max-w-5xl px-6 pt-24 pb-20 text-center">
-          <Badge variant="secondary" className="mb-6 bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-50">
-            <Sparkles className="w-3 h-3 mr-1" />
-            Trusted by 40+ apps
-          </Badge>
-
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] text-slate-900 max-w-4xl mx-auto">
-            Get your app usable from Claude, ChatGPT, Gemini, Grok & any AI agent in under{" "}
+            Your customers already use AI agents.{" "}
+            <span className="text-emerald-600">Your app should be there.</span>{" "}
+            We make it happen in under{" "}
             <span className="relative inline-block">
               <span
                 className={`inline-block tabular-nums text-emerald-600 transition-all duration-300 ${
@@ -371,7 +366,7 @@ export default function Home() {
         <div className="mx-auto max-w-6xl px-6">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-              40+ apps already agent-ready
+              40+ agent-ready integrations built in &lt; 10 business days
             </h2>
             <p className="mt-4 text-slate-600 text-lg">
               Click any tile to see the live MCP docs and demo agent

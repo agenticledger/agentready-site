@@ -239,9 +239,7 @@ export default function Home() {
       <header className="relative overflow-hidden bg-gradient-to-b from-white via-emerald-50/40 to-white">
         <div className="mx-auto max-w-5xl px-6 pt-24 pb-20 text-center">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] text-slate-900 max-w-4xl mx-auto">
-            Your customers already use AI agents.{" "}
-            <span className="text-emerald-600">Your app should be there.</span>{" "}
-            We make it happen in under{" "}
+            Connect your app to Claude, ChatGPT, Gemini, Grok &amp; any AI agent in under{" "}
             <span className="relative inline-block">
               <span
                 className={`inline-block tabular-nums text-emerald-600 transition-all duration-300 ${
@@ -251,7 +249,7 @@ export default function Home() {
                 {countdownValue}
               </span>
             </span>{" "}
-            business days
+            <span className="text-emerald-600">business days.</span>
           </h1>
 
           <p className="mt-6 text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">

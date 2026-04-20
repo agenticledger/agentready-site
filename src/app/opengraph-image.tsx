@@ -70,7 +70,7 @@ export default async function Image() {
             maxWidth: "700px",
           }}
         >
-          Claude, ChatGPT, Gemini, Grok & more — in 10 business days
+          Connect your app to Claude, ChatGPT, Gemini, Grok & any AI agent
         </div>
         <div
           style={{

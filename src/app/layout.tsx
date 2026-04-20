@@ -10,7 +10,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Agent Ready by AgenticLedger — Make Your App Accessible to Every AI Agent",
   description:
-    "Get your app usable from Claude, ChatGPT, Gemini, Grok & any AI agent in 10 business days. We build the MCP server, demo agent, and docs.",
+    "Connect your app to Claude, ChatGPT, Gemini, Grok & any AI agent in under 10 business days. We build the MCP server, demo agent, and docs.",
   metadataBase: new URL("https://agentready.agenticledger.ai"),
   alternates: {
     canonical: "https://agentready.agenticledger.ai",
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Agent Ready by AgenticLedger — Make Your App Accessible to Every AI Agent",
     description:
-      "Get your app usable from Claude, ChatGPT, Gemini, Grok & any AI agent in 10 business days. We build the MCP server, demo agent, and docs.",
+      "Connect your app to Claude, ChatGPT, Gemini, Grok & any AI agent in under 10 business days. We build the MCP server, demo agent, and docs.",
     url: "https://agentready.agenticledger.ai",
     siteName: "Agent Ready by AgenticLedger",
     type: "website",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Agent Ready by AgenticLedger",
     description:
-      "Get your app usable from Claude, ChatGPT, Gemini, Grok & any AI agent in 10 business days.",
+      "Connect your app to Claude, ChatGPT, Gemini, Grok & any AI agent in under 10 business days.",
   },
   robots: {
     index: true,

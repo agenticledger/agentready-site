@@ -29,25 +29,56 @@ import {
 /*  Portfolio data                                                     */
 /* ------------------------------------------------------------------ */
 
-const portfolioApps = [
-  "Stripe", "Gusto", "Bill.com", "Lighthouse", "QuickBooks", "Xero", "Brex", "Chargebee",
-  "Expensify", "FloQast", "Karbon", "Mercury", "NetSuite", "Plaid", "Ramp", "Rippling",
-  "Square", "Wave", "Wise", "Avalara", "Bitwave", "Catalyx", "CCView", "CubeDev",
-  "Finney", "Fireblocks", "Fireflies", "GCP Public Datasets", "Granola", "HubSpot",
-  "Lattice", "MX", "OneScheme", "Pleo", "PriceOps", "SaaSOptics", "SafeBase", "Sigma",
-  "SpotDraft", "Tipalti", "Trolley", "Zip",
+const portfolioApps: { name: string; slug: string; category: string }[] = [
+  { name: "Stripe", slug: "stripe", category: "Payments" },
+  { name: "PayPal", slug: "paypal", category: "Payments" },
+  { name: "Square", slug: "square", category: "Payments" },
+  { name: "Xero", slug: "xero", category: "Accounting" },
+  { name: "QuickBooks", slug: "qbo", category: "Accounting" },
+  { name: "Bill.com", slug: "billcom", category: "Accounting" },
+  { name: "NetSuite", slug: "netsuite", category: "ERP" },
+  { name: "Mercury", slug: "mercury", category: "Banking" },
+  { name: "Plaid", slug: "plaid", category: "Banking" },
+  { name: "Brex", slug: "brex", category: "Spend Mgmt" },
+  { name: "Ramp", slug: "ramp", category: "Spend Mgmt" },
+  { name: "Gusto", slug: "gusto", category: "HR & Payroll" },
+  { name: "Chargebee", slug: "chargebee", category: "Billing" },
+  { name: "Modern Treasury", slug: "modern-treasury", category: "Treasury" },
+  { name: "Avalara", slug: "avalara", category: "Tax" },
+  { name: "Expensify", slug: "expensify", category: "Expenses" },
+  { name: "FloQast", slug: "floqast", category: "Close Mgmt" },
+  { name: "Karbon", slug: "karbon", category: "Practice Mgmt" },
+  { name: "HubSpot", slug: "hubspot", category: "CRM" },
+  { name: "Smartsheet", slug: "smartsheets", category: "Project Mgmt" },
+  { name: "Cube.dev", slug: "cubedev", category: "Analytics" },
+  { name: "Metabase", slug: "metabase", category: "Analytics" },
+  { name: "Fireflies", slug: "fireflies", category: "Meetings" },
+  { name: "Granola", slug: "granola", category: "Meetings" },
+  { name: "Notion", slug: "notion", category: "Productivity" },
+  { name: "Fireblocks", slug: "fireblocks", category: "Crypto" },
+  { name: "Bitwave", slug: "bitwave", category: "Crypto" },
+  { name: "Lighthouse", slug: "lighthouse", category: "Crypto" },
+  { name: "CCView", slug: "ccview", category: "Crypto" },
+  { name: "Lightspark SDK", slug: "lightspark-sdk", category: "Crypto" },
+  { name: "Lightspark Grid", slug: "lightspark-grid", category: "Payments" },
+  { name: "P2P Lambda", slug: "p2p-lambda", category: "Crypto" },
+  { name: "Tres Finance", slug: "tres-finance", category: "Crypto" },
+  { name: "GCP Web3", slug: "gcp-public-datasets", category: "Crypto" },
+  { name: "Catalyx", slug: "catalyx-wallet-manager", category: "Treasury" },
+  { name: "Finney", slug: "finney", category: "AI Builder" },
+  { name: "MyAIforOne", slug: "myaiforone", category: "Agent Platform" },
+  { name: "LinkedIn", slug: "linkedin", category: "Social" },
+  { name: "YouTube", slug: "youtube-transcript", category: "Media" },
+  { name: "Finance Is Cooked", slug: "financeiscooked", category: "Media" },
 ];
 
-function toSlug(name: string): string {
-  return name
-    .toLowerCase()
-    .replace(/\./g, "")
-    .replace(/\s+/g, "")
-    .replace(/[^a-z0-9]/g, "");
-}
+// Additional showcase (not on financemcps)
+const showcaseApps = [
+  { name: "Web3 Antivirus", url: "https://w3avmcp.agenticledger.ai", category: "Security" },
+];
 
-function getPortfolioUrl(name: string): string {
-  return `https://financemcps.agenticledger.ai/${toSlug(name)}/`;
+function getPortfolioUrl(slug: string): string {
+  return `https://financemcps.agenticledger.ai/${slug}/`;
 }
 
 /* ------------------------------------------------------------------ */
@@ -63,15 +94,15 @@ const trendArticles = [
   },
   {
     company: "Shopify",
-    quote: "Shopify makes its platform accessible to AI agents via MCP",
-    url: "https://shopify.engineering/shopifys-model-context-protocol",
+    quote: "Millions of merchants can now sell directly through AI agent chats",
+    url: "https://www.shopify.com/news/agentic-commerce-momentum",
     icon: "SHOP",
   },
   {
-    company: "OpenAI",
-    quote: "OpenAI launches agent-ready APIs and tools for enterprise apps",
-    url: "https://openai.com/index/new-tools-for-building-agents/",
-    icon: "AI",
+    company: "Google",
+    quote: "Google embraces Anthropic's MCP standard for connecting AI models to data",
+    url: "https://techcrunch.com/2025/04/09/google-says-itll-embrace-anthropics-standard-for-connecting-ai-models-to-data/",
+    icon: "G",
   },
   {
     company: "Anthropic",
@@ -348,33 +379,38 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
-            {portfolioApps.map((name) => (
+            {portfolioApps.map((app) => (
               <a
-                key={name}
-                href={getPortfolioUrl(name)}
+                key={app.slug}
+                href={getPortfolioUrl(app.slug)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group"
               >
-                <Card className="flex items-center justify-center h-16 px-3 text-center bg-white border-slate-200 hover:border-emerald-400 hover:shadow-sm transition-all duration-150">
+                <Card className="flex flex-col items-center justify-center h-20 px-3 text-center bg-white border-slate-200 hover:border-emerald-400 hover:shadow-sm transition-all duration-150">
                   <span className="text-sm font-medium text-slate-700 group-hover:text-emerald-700 transition-colors truncate">
-                    {name}
+                    {app.name}
                   </span>
+                  <span className="text-[10px] text-slate-400 mt-1">{app.category}</span>
                 </Card>
               </a>
             ))}
-            <a
-              href="https://w3avmcp.agenticledger.ai"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group"
-            >
-              <Card className="flex items-center justify-center h-16 px-3 text-center bg-white border-slate-200 hover:border-emerald-400 hover:shadow-sm transition-all duration-150">
-                <span className="text-sm font-medium text-slate-700 group-hover:text-emerald-700 transition-colors truncate">
-                  Web3 Antivirus
-                </span>
-              </Card>
-            </a>
+            {showcaseApps.map((app) => (
+              <a
+                key={app.name}
+                href={app.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group"
+              >
+                <Card className="flex flex-col items-center justify-center h-20 px-3 text-center bg-white border-slate-200 hover:border-emerald-400 hover:shadow-sm transition-all duration-150">
+                  <span className="text-sm font-medium text-slate-700 group-hover:text-emerald-700 transition-colors truncate">
+                    {app.name}
+                  </span>
+                  <span className="text-[10px] text-slate-400 mt-1">{app.category}</span>
+                </Card>
+              </a>
+            ))}
           </div>
         </div>
       </Section>

@@ -105,6 +105,7 @@ const portfolioApps: { name: string; slug: string; category: string }[] = [
 // Additional showcase (not on financemcps)
 const showcaseApps = [
   { name: "Web3 Antivirus", url: "https://w3avmcp.agenticledger.ai", category: "Security" },
+  { name: "Frexplorer", url: "https://frexplorer.agenticledger.ai/mcp-docs", category: "Crypto" },
 ];
 
 function getPortfolioUrl(slug: string): string {

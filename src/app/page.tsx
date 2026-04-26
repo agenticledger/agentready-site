@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, FormEvent } from "react";
+import { useState, useEffect, useRef, useCallback, FormEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -54,6 +54,124 @@ const categoryStyle: Record<string, string> = {
 
 const getCategoryClasses = (category: string) =>
   categoryStyle[category] ?? "bg-gray-50 border-gray-200 text-gray-700";
+
+/* ------------------------------------------------------------------ */
+/*  Logo domain map — used to fetch logos from Clearbit                */
+/* ------------------------------------------------------------------ */
+const logoDomain: Record<string, string> = {
+  stripe: "stripe.com",
+  paypal: "paypal.com",
+  square: "squareup.com",
+  xero: "xero.com",
+  qbo: "quickbooks.intuit.com",
+  billcom: "bill.com",
+  netsuite: "netsuite.com",
+  mercury: "mercury.com",
+  plaid: "plaid.com",
+  brex: "brex.com",
+  ramp: "ramp.com",
+  gusto: "gusto.com",
+  chargebee: "chargebee.com",
+  "modern-treasury": "moderntreasurycom",
+  avalara: "avalara.com",
+  expensify: "expensify.com",
+  floqast: "floqast.com",
+  karbon: "karbonhq.com",
+  hubspot: "hubspot.com",
+  smartsheets: "smartsheet.com",
+  cubedev: "cube.dev",
+  metabase: "metabase.com",
+  fireflies: "fireflies.ai",
+  granola: "granola.so",
+  notion: "notion.so",
+  fireblocks: "fireblocks.com",
+  bitwave: "bitwave.io",
+  lighthouse: "lighthouse.one",
+  ccview: "ccview.io",
+  "lightspark-sdk": "lightspark.com",
+  "lightspark-grid": "lightspark.com",
+  "p2p-lambda": "p2plambda.com",
+  "tres-finance": "tres.finance",
+  "gcp-public-datasets": "cloud.google.com",
+  "catalyx-wallet-manager": "catalyx.io",
+  finney: "finney.ai",
+  myaiforone: "myaiforone.com",
+  linkedin: "linkedin.com",
+  "youtube-transcript": "youtube.com",
+  financeiscooked: "financeiscooked.com",
+};
+
+/* showcase logo domains */
+const showcaseLogoDomain: Record<string, string> = {
+  "Web3 Antivirus": "web3antivirus.io",
+  "Frexplorer": "frexplorer.com",
+};
+
+function getLogoUrl(slug: string): string {
+  const domain = logoDomain[slug];
+  if (!domain) return "";
+  return `https://logo.clearbit.com/${domain}?size=128`;
+}
+
+/* ------------------------------------------------------------------ */
+/*  LogoImage — brand logo with graceful initial-letter fallback       */
+/* ------------------------------------------------------------------ */
+const categoryBg: Record<string, string> = {
+  Payments: "#3b82f6",
+  Accounting: "#10b981",
+  ERP: "#8b5cf6",
+  Banking: "#06b6d4",
+  "Spend Mgmt": "#f59e0b",
+  "HR & Payroll": "#f43f5e",
+  Billing: "#6366f1",
+  Treasury: "#14b8a6",
+  Tax: "#f97316",
+  Expenses: "#ec4899",
+  "Close Mgmt": "#d946ef",
+  "Practice Mgmt": "#a855f7",
+  CRM: "#0ea5e9",
+  "Project Mgmt": "#84cc16",
+  Analytics: "#64748b",
+  Meetings: "#eab308",
+  Productivity: "#22c55e",
+  Crypto: "#71717a",
+  "Agent Platform": "#8b5cf6",
+  Social: "#3b82f6",
+  Media: "#ef4444",
+  Security: "#78716c",
+  "AI Builder": "#6366f1",
+};
+
+function LogoImage({ name, slug, category, logoUrl }: { name: string; slug: string; category: string; logoUrl: string }) {
+  const [failed, setFailed] = useState(false);
+  const handleError = useCallback(() => setFailed(true), []);
+
+  if (failed || !logoUrl) {
+    const bg = categoryBg[category] ?? "#6b7280";
+    const initials = name.split(/[\s.]+/).map(w => w[0]).join("").slice(0, 2).toUpperCase();
+    return (
+      <div
+        className="w-8 h-8 rounded-lg flex items-center justify-center text-white font-bold text-xs shrink-0"
+        style={{ backgroundColor: bg }}
+      >
+        {initials}
+      </div>
+    );
+  }
+
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={logoUrl}
+      alt={`${name} logo`}
+      width={32}
+      height={32}
+      loading="lazy"
+      className="w-8 h-8 rounded-lg object-contain bg-white shrink-0"
+      onError={handleError}
+    />
+  );
+}
 
 /* ------------------------------------------------------------------ */
 /*  Portfolio data                                                     */
@@ -413,30 +531,41 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="group"
               >
-                <Card className={`flex flex-col items-center justify-center min-h-[5.5rem] py-3 px-4 text-center border hover:shadow-md hover:scale-[1.03] transition-all duration-150 ${getCategoryClasses(app.category)}`}>
-                  <span className="text-sm font-semibold leading-tight">
-                    {app.name}
-                  </span>
-                  <span className="text-[11px] opacity-60 mt-1.5 font-medium">{app.category}</span>
+                <Card className={`flex flex-col items-center justify-center gap-2 min-h-[7rem] py-3 px-3 text-center border hover:shadow-md hover:scale-[1.03] transition-all duration-150 ${getCategoryClasses(app.category)}`}>
+                  <LogoImage name={app.name} slug={app.slug} category={app.category} logoUrl={getLogoUrl(app.slug)} />
+                  <div className="flex flex-col items-center">
+                    <span className="text-sm font-semibold leading-tight">
+                      {app.name}
+                    </span>
+                    <span className="text-[11px] opacity-60 mt-1 font-medium">{app.category}</span>
+                  </div>
                 </Card>
               </a>
             ))}
-            {showcaseApps.map((app) => (
-              <a
-                key={app.name}
-                href={app.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group"
-              >
-                <Card className={`flex flex-col items-center justify-center min-h-[5.5rem] py-3 px-4 text-center border hover:shadow-md hover:scale-[1.03] transition-all duration-150 ${getCategoryClasses(app.category)}`}>
-                  <span className="text-sm font-semibold leading-tight">
-                    {app.name}
-                  </span>
-                  <span className="text-[11px] opacity-60 mt-1.5 font-medium">{app.category}</span>
-                </Card>
-              </a>
-            ))}
+            {showcaseApps.map((app) => {
+              const sLogoUrl = showcaseLogoDomain[app.name]
+                ? `https://logo.clearbit.com/${showcaseLogoDomain[app.name]}?size=128`
+                : "";
+              return (
+                <a
+                  key={app.name}
+                  href={app.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group"
+                >
+                  <Card className={`flex flex-col items-center justify-center gap-2 min-h-[7rem] py-3 px-3 text-center border hover:shadow-md hover:scale-[1.03] transition-all duration-150 ${getCategoryClasses(app.category)}`}>
+                    <LogoImage name={app.name} slug={app.name} category={app.category} logoUrl={sLogoUrl} />
+                    <div className="flex flex-col items-center">
+                      <span className="text-sm font-semibold leading-tight">
+                        {app.name}
+                      </span>
+                      <span className="text-[11px] opacity-60 mt-1 font-medium">{app.category}</span>
+                    </div>
+                  </Card>
+                </a>
+              );
+            })}
           </div>
         </div>
       </Section>
